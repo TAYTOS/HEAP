@@ -4,11 +4,19 @@ public class PriorityQueueHeap<T extends Comparable<T>> {
     public PriorityQueueHeap() {
         heap = new TAD<>();
     }
-
+    public void enqueue(T x){
+        this.heap.insert(x);
+    }
+    
     public T dequeue() {
         return heap.delete();
     }
+    public T front() {
+        if (heap.getData().isEmpty())
+            return null;
 
+        return heap.getData().get(0);
+    }
     public T back() {
         if (heap.getData().isEmpty())
             return null;
