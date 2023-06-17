@@ -24,39 +24,17 @@ public class TAD <T extends Comparable<T>> {
             ci = pi;
         }
     }
-    public T delete(T x) {
+    public T delete() {
         if (data.isEmpty())
             return null;
 
-        int index = data.indexOf(x);
-        if (index == -1)
-            return null;
-
-        T root = data.get(index);
-        int lastIndex = data.size() - 1;
-        if (index != lastIndex) {
-            T last = data.get(lastIndex);
-            data.set(index, last);
-            data.remove(lastIndex);
-            if (index < lastIndex && last.compareTo(data.get(parent(index))) > 0)
-                heapifyUp(index);
-            else
-                heapifyDown(index);
-        } else {
-            data.remove(lastIndex);
+        T root = data.get(0);
+        T last = data.remove(data.size() - 1);
+        if (!data.isEmpty()) {
+            data.set(0, last);
+            heapifyDown(0);
         }
-
         return root;
-    }
-    private int parent(int i) {
-        return (i - 1) / 2;
-    }
-
-    private void heapifyUp(int i) {
-        while (i > 0 && data.get(i).compareTo(data.get(parent(i))) > 0) {
-            swap(i, parent(i));
-            i = parent(i);
-        }
     }
 
     private void heapifyDown(int i) {
